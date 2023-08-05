@@ -16,5 +16,7 @@ services:
     cap_add:
     - NET_ADMIN
     - SYS_NICE
+    volumes:
+    - ./.env:/app/.env
     labels:
     - "com.centurylinklabs.watchtower.enable=true"
