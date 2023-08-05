@@ -10,7 +10,7 @@ services:
     environment:
     - TZ=UTC
     - IFACE_TZSP=eth0
-    - IFACE_SURICATA=eth1
+    - IFACE_SNIFFER=eth0
     restart: unless-stopped
     network_mode: host
     cap_add:
