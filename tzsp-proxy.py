@@ -15,8 +15,18 @@ import _thread
 import fcntl
 import socket
 import struct
+import os
 
+from dotenv import load_dotenv
 from scapy.all import *
+
+# load enviroment from .env
+load_dotenv()
+
+# tzsp receive interface
+IFACE_TZSP = os.environ.get('IFACE_TZSP', default="eth0")
+# output suricata interface
+IFACE_SURICATA = os.environ.get('IFACE_SURICATA', default="eth0")
 
 # load tzsp library
 load_contrib("tzsp")

@@ -9,6 +9,8 @@ services:
     container_name: tzsp-proxy
     environment:
     - TZ=UTC
+    - IFACE_TZSP=eth0
+    - IFACE_SURICATA=eth1
     restart: unless-stopped
     network_mode: host
     cap_add:
