@@ -1,0 +1,18 @@
+---
+version: '3.4'
+services:
+  tzsp-proxy:
+    image: pace23pace/tzsp-proxy:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: tzsp-proxy
+    environment:
+    - TZ=UTC
+    restart: unless-stopped
+    network_mode: host
+    cap_add:
+    - NET_ADMIN
+    - SYS_NICE
+    labels:
+    - "com.centurylinklabs.watchtower.enable=true"

@@ -26,7 +26,7 @@ def getHwAddr(ifname):
     info = fcntl.ioctl(s.fileno(), 0x8927,  struct.pack('256s', bytes(ifname, 'utf-8')[:15]))
     return ':'.join('%02x' % b for b in info[18:24])
 
-mac_str = str(getHwAddr("bond0"))
+mac_str = str(getHwAddr("eth0"))
 
 # extract each packet received and resend it to the local interface
 # the original destination mac will be lost
@@ -37,7 +37,7 @@ def processPacketCapture ( tzspCapture ):
              rawPacket = tzspPacket[2]
              try:
                  rawPacket[Ether].dst = mac_str
-                 sendp(rawPacket, iface="bond0", verbose=False)
+                 sendp(rawPacket, iface="eth0", verbose=False)
              except:
                  print("Exception!")
                  print(repr(tzspRawPacket))
