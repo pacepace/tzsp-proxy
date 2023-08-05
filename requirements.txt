@@ -1,3 +1,2 @@
 dotenv==0.0.5
 scapy==2.5.0
-setuptools==59.6.0
