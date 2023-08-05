@@ -8,7 +8,7 @@
 # python multi-stage build info: https://pythonspeed.com/articles/multi-stage-docker-python/
 #
 # the image used in this stage must include the compiler and build tools
-FROM python:bookworm-3 AS compile-image
+FROM python:3 AS compile-image
 
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -33,7 +33,7 @@ COPY . .
 # build the runtime image
 #
 # using -slim builds will reduce the number of vulnerabilities
-FROM python:bokwarm-3-slim as runtime-image
+FROM python:3-slim as runtime-image
 
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE=1
