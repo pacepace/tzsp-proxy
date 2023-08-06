@@ -41,6 +41,9 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED=1
 
+# copy compiled files into the runtime image
+COPY --from=compile-image /opt/venv /opt/venv
+
 # this is a module that must be run as root
 USER root
 
