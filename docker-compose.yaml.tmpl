@@ -12,6 +12,8 @@ services:
     - IFACE_TZSP=eth0
     - IFACE_TZSP_PORT=37008
     - IFACE_SNIFFER=eth0
+    - SANITY_LOG=False
+    - SANITY_COUNT_LOG=1000
     - SNIFFER_SEND_VERSBOSE=False
     - PACKET_COUNT_LOG=1000
     restart: unless-stopped

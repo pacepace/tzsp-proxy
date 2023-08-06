@@ -30,8 +30,6 @@ load_dotenv()
 # packet count
 packetCount = Counter(count=0)
 
-# classes
-
 # return the mac address of the interface
 def getHwAddr(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -49,7 +47,7 @@ def processPacketCapture ( tzspCapture ):
         try:
             rawPacket[Ether].dst = mac_str
             sendp(rawPacket, iface=IFACE_SNIFFER, verbose=False)
-            if (SNIFFER_SEND_VERBOSE) or (packetCount['count'] % PACKET_COUNT_LOG == 0):
+            if (SNIFFER_SEND_VERBOSE) or ((SANITY_LOG) and (packetCount['count'] % SANITY_COUNT_LOG == 0)):
                 if IP in rawPacket:
                     print(f'source ip: {rawPacket[IP].src:<15} destination ip: {rawPacket[IP].dst:<15}')
                 if IPv6 in rawPacket:
@@ -83,8 +81,13 @@ IFACE_TZSP = os.environ.get('IFACE_TZSP', default='eth0')
 IFACE_TZSP_PORT = int(os.environ.get('IFACE_TZSP_PORT', default=37008))
 # output raw packets to this sniffer interface
 IFACE_SNIFFER = os.environ.get('IFACE_SNIFFER', default='eth0')
-# log every N packets
+# log packet count every N packets
 PACKET_COUNT_LOG = int(os.environ.get('PACKET_COUNT_LOG', default=10000))
+# log ip src and dst every N packets
+SANITY_COUNT_LOG = int(os.environ.get('SANITY_COUNT_LOG', default=10000))
+# log sanity checks
+SANITY_LOG = os.environ.get('SANITY_LOG', default=False)
+SANITY_LOG = strtobool(SANITY_LOG)
 # verbose raw packet sending
 SNIFFER_SEND_VERBOSE = os.environ.get('SNIFFER_SEND_VERBOSE', default=False)
 SNIFFER_SEND_VERBOSE = strtobool(SNIFFER_SEND_VERBOSE)
@@ -92,6 +95,8 @@ SNIFFER_SEND_VERBOSE = strtobool(SNIFFER_SEND_VERBOSE)
 # log settings
 print (f'... IFACE_TZSP: {IFACE_TZSP} ...')
 print (f'... IFACE_SNIFFER: {IFACE_SNIFFER} ...')
+print (f'... SANITY_COUNT_LOG: {SANITY_COUNT_LOG} ...')
+print (f'... SANITY_LOG: {SANITY_LOG} ...')
 print (f'... SNIFFER_SEND_VERBOSE: {SNIFFER_SEND_VERBOSE} ...')
 print (f'... PACKET_COUNT_LOG: {PACKET_COUNT_LOG} ...')
 
