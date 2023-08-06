@@ -56,8 +56,8 @@ def processPacketCapture ( tzspCapture ):
                  #print("Exception!")
                  #print(repr(tzspRawPacket))
                  pass
-        except:
-             print("Exception!")
+        except Exception as err:
+                 print(f'Exception:/n{err}')
 
 # start sniffing indefinitely
 sniff(prn=processPacketCapture, iface=IFACE_TZSP, filter = "udp port 37008", store=0)
