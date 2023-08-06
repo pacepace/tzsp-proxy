@@ -11,8 +11,8 @@
 # 2023-08-05
 #
 
-# Script assumes that the TZSP Packets will be received on eth0. Replace on line 48 if that is different for you.
-# Script assumes that the promiscious interface is bond0. Replace this  on line 40 with the interface where you sensor is listening. 
+# Script assumes that the TZSP Packets will be received on eth0. Replace on line 31 if that is different for you.
+# Script assumes that the promiscious interface is eth0. Replace this on line 33 with the interface where you sensor is listening. 
 
 import _thread
 import fcntl
@@ -54,12 +54,12 @@ def processPacketCapture ( tzspCapture ):
             rawPacket[Ether].dst = mac_str
             sendp(rawPacket, iface=IFACE_SNIFFER, verbose=False)
         except Exception as err:
-            print(f'Exception:/n{err}')
+            print(f'Send Exception: {err}')
             #print("Exception!")
             #print(repr(tzspRawPacket))
             pass
     except Exception as err:
-        print(f'Exception:/n{err}')
+        print(f'Capture Exception: {err}')
         pass
 
 print('... tzsp capturing ...')
