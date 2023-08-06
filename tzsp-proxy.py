@@ -33,6 +33,7 @@ IFACE_TZSP = os.environ.get('IFACE_TZSP', default='eth0')
 IFACE_SURICATA = os.environ.get('IFACE_SURICATA', default='eth0')
 
 # global variables
+global tzsp_receive
 tzsp_receive = 0
 
 # load tzsp library
