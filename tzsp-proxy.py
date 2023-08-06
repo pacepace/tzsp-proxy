@@ -58,7 +58,7 @@ def processPacketCapture ( tzspCapture ):
             if SNIFFER_SEND_VERBOSE:
                 print(f'Source IP: {rawPacket[IP].src}')
                 print(f'Destination IP: {rawPacket[IP].dst}')
-                print(f'Source IPv6: {rawPacket.[IPv6].src}')
+                print(f'Source IPv6: {rawPacket[IPv6].src}')
                 print(f'Destination IPv6: {rawPacket[IPv6].dst}')
         except Exception as err:
             print(f'Send Exception: {err}')
