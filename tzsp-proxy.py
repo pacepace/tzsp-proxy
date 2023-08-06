@@ -26,6 +26,10 @@ from scapy.all import *
 # load enviroment from .env
 load_dotenv()
 
+# global packet count
+global packetCount
+packetCount = 0
+
 # return the mac address of the interface
 def getHwAddr(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -42,7 +46,7 @@ def processPacketCapture ( tzspCapture ):
         try:
             rawPacket[Ether].dst = mac_str
             sendp(rawPacket, iface=IFACE_SNIFFER, verbose=False)
-            if SNIFFER_SEND_VERBOSE:
+            if (SNIFFER_SEND_VERBOSE) or (packetCount % PACKET_COUNT_LOG == 0):
                 if IP in rawPacket:
                     print(f'Source IP: {rawPacket[IP].src:<15} Destination IP: {rawPacket[IP].dst:<15}')
                 if IPv6 in rawPacket:
