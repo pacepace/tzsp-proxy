@@ -11,6 +11,7 @@ services:
     - TZ=UTC
     - IFACE_TZSP=eth0
     - IFACE_SNIFFER=eth0
+    - SNIFFER_SEND_VERSBOSE=False
     restart: unless-stopped
     network_mode: host
     cap_add:
