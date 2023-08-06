@@ -29,8 +29,10 @@ load_dotenv()
 print('... tzsp proxy starting ...')
 # tzsp receive interface
 IFACE_TZSP = os.environ.get('IFACE_TZSP', default='eth0')
-# output suricata interface
+# output raw packets to this sniffer interface
 IFACE_SNIFFER = os.environ.get('IFACE_SNIFFER', default='eth0')
+# verbose raw packet sending
+SNIFFER_SEND_VERBOSE = os.environ.get('SNIFFER_SEND_VERBOSE', default=False)
 
 # load tzsp library
 print('... tzsp library loading ...')
@@ -52,7 +54,7 @@ def processPacketCapture ( tzspCapture ):
         rawPacket = tzspPacket[2]
         try:
             rawPacket[Ether].dst = mac_str
-            sendp(rawPacket, iface=IFACE_SNIFFER, verbose=False)
+            sendp(rawPacket, iface=IFACE_SNIFFER, verbose=SNIFFER_SEND_VERBOSE)
         except Exception as err:
             print(f'Send Exception: {err}')
             #print("Exception!")
