@@ -41,13 +41,8 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED=1
 
-# Creates a non-root user with an explicit UID
-# For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
-RUN adduser -u 5678 --disabled-password --gecos "" appuser
-USER appuser
-
-# copy compiled files into the runtime image
-COPY --from=compile-image --chown=appuser:appuser /opt/venv /opt/venv
+# this is a module that must be run as root
+USER root
 
 # set the working directory
 WORKDIR /opt/venv
