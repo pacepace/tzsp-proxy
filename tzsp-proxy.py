@@ -51,9 +51,9 @@ def processPacketCapture ( tzspCapture ):
             sendp(rawPacket, iface=IFACE_SNIFFER, verbose=False)
             if (SNIFFER_SEND_VERBOSE) or (packetCount['count'] % PACKET_COUNT_LOG == 0):
                 if IP in rawPacket:
-                    print(f'Source IP: {rawPacket[IP].src:<15} Destination IP: {rawPacket[IP].dst:<15}')
+                    print(f'source ip: {rawPacket[IP].src:<15} destination ip: {rawPacket[IP].dst:<15}')
                 if IPv6 in rawPacket:
-                    print(f'Source IPv6: {rawPacket[IPv6].src:<30} Destination IPv6: {rawPacket[IPv6].dst:<30}')
+                    print(f'source ipv6: {rawPacket[IPv6].src:<30} destination ipv6: {rawPacket[IPv6].dst:<30}')
         except Exception as err:
             print(f'Send Exception: {err}')
             #print("Exception!")
@@ -111,5 +111,5 @@ while True:
     if packetCount['count'] % PACKET_COUNT_LOG == 0:
         # counter object doesn't seem happy in a format
         pc = packetCount['count']
-        print(f'... {pc} captured ...')
+        print(f'packets captured: {pc}')
 print('... tzsp proxy stopping ...')
