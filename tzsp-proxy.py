@@ -7,12 +7,12 @@
 # Version 1.1
 # 2021-04-02
 #
-# Modified to make it work more easily with Docker
+# modified to make it work more easily with docker
 # 2023-08-05
 #
 
-# Script assumes that the TZSP Packets will be received on eth0. Replace on line 31 if that is different for you.
-# Script assumes that the promiscious interface is eth0. Replace this on line 33 with the interface where you sensor is listening. 
+# tzsp packets received on interface defined by IFACE_TZSP environment variable.
+# promiscious interface is defined by IFACE_SNIFFER environment variable.
 
 import _thread
 import fcntl
@@ -56,7 +56,7 @@ def processPacketCapture ( tzspCapture ):
         print(f'Capture Exception: {err}')
         pass
 
-# convert whacko strings to boolean (looking at you Polycom)
+# convert whacko strings to boolean (looking at you polycom)
 def strtobool(val):
     """Convert a string representation of truth to true (1) or false (0).
     True values are 'y', 'yes', 't', 'true', 'on', and '1'; false values
