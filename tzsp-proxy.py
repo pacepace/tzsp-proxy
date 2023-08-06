@@ -28,8 +28,7 @@ from scapy.all import *
 load_dotenv()
 
 # packet count
-packetCount = Counter()
-packetCount['count'] = 0
+packetCount = Counter(count=0)
 
 # classes
 
@@ -107,7 +106,8 @@ print('... tzsp capturing ...')
 # TODO: add signal handling
 while True:
     sniff(prn=processPacketCapture, count=1000, iface=IFACE_TZSP, filter = 'udp port 37008', store=0)
-    packetCount['count'] += 1000
+    newPacketCount = Counter(count=1000)
+    packetCount.update(newPacketCount)
     if packetCount['count'] % PACKET_COUNT_LOG == 0:
         print(f'... {packetCount} captured ...')
 print('... tzsp proxy stopping ...')
