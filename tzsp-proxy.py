@@ -53,7 +53,7 @@ def processPacketCapture ( tzspCapture ):
                 if IP in rawPacket:
                     print(f'source ip: {rawPacket[IP].src:<15} destination ip: {rawPacket[IP].dst:<15}')
                 if IPv6 in rawPacket:
-                    print(f'source ipv6: {rawPacket[IPv6].src:<30} destination ipv6: {rawPacket[IPv6].dst:<30}')
+                    print(f'source ipv6: {rawPacket[IPv6].src:<38} destination ipv6: {rawPacket[IPv6].dst:<38}')
         except Exception as err:
             print(f'Send Exception: {err}')
             #print("Exception!")
