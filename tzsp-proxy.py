@@ -52,12 +52,12 @@ def processPacketCapture ( tzspCapture ):
             rawPacket[Ether].dst = mac_str
             sendp(rawPacket, iface=IFACE_SURICATA, verbose=False)
         except Exception as err:
-            #print(f'Exception:/n{err}')
+            print(f'Exception:/n{err}')
             #print("Exception!")
             #print(repr(tzspRawPacket))
             pass
     except Exception as err:
-        #print(f'Exception:/n{err}')
+        print(f'Exception:/n{err}')
         pass
 
 # start sniffing indefinitely
