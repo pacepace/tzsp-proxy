@@ -1,5 +1,5 @@
 ---
-version: '3.4'
+version: '3.8'
 services:
   tzsp-proxy:
     image: pace23pace/tzsp-proxy:latest
@@ -13,7 +13,7 @@ services:
     - IFACE_TZSP_PORT=37008
     - IFACE_SNIFFER=eth0
     - SNIFFER_SEND_VERSBOSE=False
-    - PACKET_COUNT_LOG=10000
+    - PACKET_COUNT_LOG=1000
     restart: unless-stopped
     network_mode: host
     cap_add:
