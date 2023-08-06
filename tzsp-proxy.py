@@ -51,8 +51,6 @@ def processPacketCapture ( tzspCapture ):
         tzspPacket = TZSP(tzspRawPacket[UDP].load)
         rawPacket = tzspPacket[2]
         tzsp_receive = len(tzspCapture)
-        if tzsp_receive % 1000 == 0:
-            print(f'... tzsp packets received: {tzsp_receive} ...') 
         try:
             rawPacket[Ether].dst = mac_str
             sendp(rawPacket, iface=IFACE_SURICATA, verbose=False)
@@ -67,4 +65,6 @@ def processPacketCapture ( tzspCapture ):
 
 print('... tzsp starting ...')
 # start sniffing indefinitely
-sniff(prn=processPacketCapture, iface=IFACE_TZSP, filter = 'udp port 37008', store=0)
+while True:
+    sniff(prn=processPacketCapture, count=1000, iface=IFACE_TZSP, filter = 'udp port 37008', store=0)
+    print('... tzsp sniffed 1000 ...')
