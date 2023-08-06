@@ -63,4 +63,6 @@ def processPacketCapture ( tzspCapture ):
         pass
 
 print('... tzsp starting ...')
-sniff(prn=processPacketCapture, count=1000, iface=IFACE_TZSP, filter = 'udp port 37008', store=0)
+while True:
+    sniff(prn=processPacketCapture, count=1000, iface=IFACE_TZSP, filter = 'udp port 37008', store=0)
+    print('... 1000 captured ...')
