@@ -41,6 +41,11 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED=1
 
+RUN apt-get update \
+ && DEBIAN_FRONTEND=noninteractive \
+    apt-get upgrade -y \
+ && apt-get install -y libpcap
+
 # copy compiled files into the runtime image
 COPY --from=compile-image /opt/venv /opt/venv
 
