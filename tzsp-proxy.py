@@ -29,7 +29,7 @@ load_dotenv()
 # tzsp receive interface
 IFACE_TZSP = os.environ.get('IFACE_TZSP', default="eth0")
 # output suricata interface
-IFACE_SNIFFER = os.environ.get('IFACE_SNIFFER', default="eth0")
+IFACE_SURICATA = os.environ.get('IFACE_SNIFFER', default="eth0")
 
 # load tzsp library
 load_contrib("tzsp")
@@ -39,25 +39,27 @@ def getHwAddr(ifname):
     info = fcntl.ioctl(s.fileno(), 0x8927,  struct.pack('256s', bytes(ifname, 'utf-8')[:15]))
     return ':'.join('%02x' % b for b in info[18:24])
 
-mac_str = str(getHwAddr(IFACE_SNIFFER))
+mac_str = str(getHwAddr(IFACE_SURICATA))
 
 # extract each packet received and resend it to the local interface
 # the original destination mac will be lost
 def processPacketCapture ( tzspCapture ):
+    try:
+        tzspRawPacket = tzspCapture[0]
+        tzspPacket = TZSP(tzspRawPacket[UDP].load)
+        rawPacket = tzspPacket[2]
         try:
-             tzspRawPacket = tzspCapture[0]
-             tzspPacket = TZSP(tzspRawPacket[UDP].load)
-             rawPacket = tzspPacket[2]
-             try:
-                 rawPacket[Ether].dst = mac_str
-                 sendp(rawPacket, iface=IFACE_SNIFFER, verbose=False)
-             except Exception as err:
-                 #print(f'Exception:/n{err}')
-                 #print("Exception!")
-                 #print(repr(tzspRawPacket))
-                 pass
+            rawPacket[Ether].dst = mac_str
+            print('here')
+            sendp(rawPacket, iface=IFACE_SURICATA, verbose=False)
         except Exception as err:
-                 print(f'Exception:/n{err}')
+            #print(f'Exception:/n{err}')
+            #print("Exception!")
+            #print(repr(tzspRawPacket))
+            pass
+    except Exception as err:
+        #print(f'Exception:/n{err}')
+        pass
 
 # start sniffing indefinitely
 sniff(prn=processPacketCapture, iface=IFACE_TZSP, filter = "udp port 37008", store=0)
