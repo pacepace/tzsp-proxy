@@ -33,7 +33,7 @@ COPY . .
 # build the runtime image
 #
 # using -slim builds will reduce the number of vulnerabilities
-FROM python:3-slim as runtime-image
+FROM python:alpine-slim as runtime-image
 
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE=1

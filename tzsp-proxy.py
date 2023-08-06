@@ -72,6 +72,8 @@ def strtobool(val):
 print('... tzsp proxy starting ...')
 # tzsp receive interface
 IFACE_TZSP = os.environ.get('IFACE_TZSP', default='eth0')
+# tzsp receive port
+IFACE_TZSP_PORT = int(os.environ.get('IFACE_TZSP_PORT', default=37008))
 # output raw packets to this sniffer interface
 IFACE_SNIFFER = os.environ.get('IFACE_SNIFFER', default='eth0')
 # log every N packets
