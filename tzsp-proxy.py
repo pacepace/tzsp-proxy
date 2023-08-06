@@ -59,7 +59,7 @@ def processPacketCapture ( tzspCapture ):
                 print(f'Source IP: {rawPacket.getLayer(IP).src}')
                 print(f'Destination IP: {rawPacket.getLayer(IP).dst}')
                 print(f'Source IPv6: {rawPacket.getLayer(IPv6).src}')
-                print(f'Destination IPv6: {rawPacket.getLayer(IPv6)].dst}')
+                print(f'Destination IPv6: {rawPacket.getLayer(IPv6).dst}')
         except Exception as err:
             print(f'Send Exception: {err}')
             #print("Exception!")
