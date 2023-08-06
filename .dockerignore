@@ -1,0 +1,7 @@
+!.git/HEAD
+!.git/refs/
+.github
+.gitignore
+.vs
+.vscode
+.devcontainer
