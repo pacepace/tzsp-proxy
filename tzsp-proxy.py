@@ -74,6 +74,8 @@ print('... tzsp proxy starting ...')
 IFACE_TZSP = os.environ.get('IFACE_TZSP', default='eth0')
 # output raw packets to this sniffer interface
 IFACE_SNIFFER = os.environ.get('IFACE_SNIFFER', default='eth0')
+# log every N packets
+PACKET_COUNT_LOG = int(os.environ.get('PACKET_COUNT_LOG', default=10000))
 # verbose raw packet sending
 SNIFFER_SEND_VERBOSE = os.environ.get('SNIFFER_SEND_VERBOSE', default=False)
 SNIFFER_SEND_VERBOSE = strtobool(SNIFFER_SEND_VERBOSE)
@@ -89,7 +91,10 @@ load_contrib('tzsp')
 mac_str = str(getHwAddr(IFACE_SNIFFER))
 
 print('... tzsp capturing ...')
+packetCount = 0
 while True:
     sniff(prn=processPacketCapture, count=1000, iface=IFACE_TZSP, filter = 'udp port 37008', store=0)
-    print('... 1000 captured ...')
+    packetCount += 1000
+    if packetCount % PACKET_COUNT_LOG == 0:
+        print(f'... {packetCount} captured ...')
 print('... tzsp proxy stopping ...')

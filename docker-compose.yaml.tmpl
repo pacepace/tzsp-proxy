@@ -12,6 +12,7 @@ services:
     - IFACE_TZSP=eth0
     - IFACE_SNIFFER=eth0
     - SNIFFER_SEND_VERSBOSE=False
+    - PACKET_COUNT_LOG=10000
     restart: unless-stopped
     network_mode: host
     cap_add:
