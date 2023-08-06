@@ -26,11 +26,18 @@ from scapy.all import *
 # load enviroment from .env
 load_dotenv()
 
+# packet count
+packetCount = 0
+
 # return the mac address of the interface
 def getHwAddr(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     info = fcntl.ioctl(s.fileno(), 0x8927,  struct.pack('256s', bytes(ifname, 'utf-8')[:15]))
     return ':'.join('%02x' % b for b in info[18:24])
+
+# get the packet count
+def getPacketCount():
+    return packetCount
 
 # extract each packet received and resend it to the local interface
 # the original destination mac will be lost
@@ -42,7 +49,8 @@ def processPacketCapture ( tzspCapture ):
         try:
             rawPacket[Ether].dst = mac_str
             sendp(rawPacket, iface=IFACE_SNIFFER, verbose=False)
-            if SNIFFER_SEND_VERBOSE:
+            pcount = getPacketCount()
+            if (SNIFFER_SEND_VERBOSE) or (pcount % PACKET_COUNT_LOG == 0):
                 if IP in rawPacket:
                     print(f'Source IP: {rawPacket[IP].src:<15} Destination IP: {rawPacket[IP].dst:<15}')
                 if IPv6 in rawPacket:
@@ -96,7 +104,6 @@ load_contrib('tzsp')
 mac_str = str(getHwAddr(IFACE_SNIFFER))
 
 print('... tzsp capturing ...')
-packetCount = 0
 # TODO: add signal handling
 while True:
     sniff(prn=processPacketCapture, count=1000, iface=IFACE_TZSP, filter = 'udp port 37008', store=0)
