@@ -95,15 +95,14 @@ SNIFFER_SEND_VERBOSE = os.environ.get('SNIFFER_SEND_VERBOSE', default=False)
 SNIFFER_SEND_VERBOSE = strtobool(SNIFFER_SEND_VERBOSE)
 
 # log settings
-print (f'... IFACE_TZSP: {IFACE_TZSP} ...')
-print (f'... IFACE_SNIFFER: {IFACE_SNIFFER} ...')
-print (f'... SANITY_COUNT_LOG: {SANITY_COUNT_LOG} ...')
-print (f'... SANITY_LOG: {SANITY_LOG} ...')
-print (f'... SNIFFER_SEND_VERBOSE: {SNIFFER_SEND_VERBOSE} ...')
-print (f'... PACKET_COUNT_LOG: {PACKET_COUNT_LOG} ...')
+print (f'... IFACE_TZSP: {IFACE_TZSP}')
+print (f'... IFACE_SNIFFER: {IFACE_SNIFFER}')
+print (f'... SANITY_COUNT_LOG: {SANITY_COUNT_LOG}')
+print (f'... SANITY_LOG: {SANITY_LOG}')
+print (f'... SNIFFER_SEND_VERBOSE: {SNIFFER_SEND_VERBOSE}')
+print (f'... PACKET_COUNT_LOG: {PACKET_COUNT_LOG}')
 
 # load tzsp library
-print('... tzsp library loading ...')
 load_contrib('tzsp')
 
 # get the mac address of the sniffer interface
@@ -113,10 +112,10 @@ print('... tzsp capturing ...')
 # TODO: add signal handling
 while True:
     sniff(prn=processPacketCapture, count=1, iface=IFACE_TZSP, filter = f'udp port {IFACE_TZSP_PORT}', store=0)
-    newPacketCount = Counter(count=1)
-    packetCount.update(newPacketCount)
     if packetCount['count'] % PACKET_COUNT_LOG == 0:
         # counter object doesn't seem happy in a format
         pc = packetCount['count']
         print(f'packets captured: {pc}')
+    newPacketCount = Counter(count=1)
+    packetCount.update(newPacketCount)
 print('... tzsp proxy stopping ...')
