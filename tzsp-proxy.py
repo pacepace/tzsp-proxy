@@ -68,12 +68,14 @@ def strtobool(val):
     are 'n', 'no', 'f', 'false', 'off', and '0'.  Raises ValueError if
     'val' is anything else.
     """
-    val = val.lower()
-    if val in ('y', 'yes', 't', 'true', 'on', '1'):
-        return True
-    else:
-        return False
-
+    try:
+        val = val.lower()
+        if val in ('y', 'yes', 't', 'true', 'on', '1'):
+            return True
+    except:
+        pass
+    return False
+ 
 print('... tzsp proxy starting ...')
 # tzsp receive interface
 IFACE_TZSP = os.environ.get('IFACE_TZSP', default='eth0')
