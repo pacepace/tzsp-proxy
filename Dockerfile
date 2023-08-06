@@ -27,8 +27,7 @@ RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 COPY requirements.txt requirements.txt
-RUN pip install --upgrade pip \
- && pip3 install -r requirements.txt
+RUN pip3 install -r requirements.txt
 COPY . .
 
 # build the runtime image
