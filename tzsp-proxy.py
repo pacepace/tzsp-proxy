@@ -82,6 +82,7 @@ SNIFFER_SEND_VERBOSE = strtobool(SNIFFER_SEND_VERBOSE)
 print (f'... IFACE_TZSP: {IFACE_TZSP} ...')
 print (f'... IFACE_SNIFFER: {IFACE_SNIFFER} ...')
 print (f'... SNIFFER_SEND_VERBOSE: {SNIFFER_SEND_VERBOSE} ...')
+print (f'... PACKET_COUNT_LOG: {PACKET_COUNT_LOG} ...')
 
 # load tzsp library
 print('... tzsp library loading ...')
