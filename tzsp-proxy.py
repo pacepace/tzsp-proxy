@@ -26,13 +26,15 @@ from scapy.all import *
 # load enviroment from .env
 load_dotenv()
 
+print('... tzsp proxy starting ...')
 # tzsp receive interface
-IFACE_TZSP = os.environ.get('IFACE_TZSP', default="eth0")
+IFACE_TZSP = os.environ.get('IFACE_TZSP', default='eth0')
 # output suricata interface
-IFACE_SURICATA = os.environ.get('IFACE_SURICATA', default="eth0")
+IFACE_SURICATA = os.environ.get('IFACE_SURICATA', default='eth0')
 
 # load tzsp library
-load_contrib("tzsp")
+print('... tzsp library loading ...')
+load_contrib('tzsp')
 
 def getHwAddr(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -60,5 +62,6 @@ def processPacketCapture ( tzspCapture ):
         print(f'Exception:/n{err}')
         pass
 
+print('... tzsp starting ...')
 # start sniffing indefinitely
-sniff(prn=processPacketCapture, iface=IFACE_TZSP, filter = "udp port 37008", store=0)
+sniff(prn=processPacketCapture, iface=IFACE_TZSP, filter = 'udp port 37008', store=0)
