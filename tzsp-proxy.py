@@ -105,8 +105,8 @@ mac_str = str(getHwAddr(IFACE_SNIFFER))
 print('... tzsp capturing ...')
 # TODO: add signal handling
 while True:
-    sniff(prn=processPacketCapture, count=1000, iface=IFACE_TZSP, filter = 'udp port 37008', store=0)
-    newPacketCount = Counter(count=1000)
+    sniff(prn=processPacketCapture, count=100, iface=IFACE_TZSP, filter = 'udp port 37008', store=0)
+    newPacketCount = Counter(count=100)
     packetCount.update(newPacketCount)
     if packetCount['count'] % PACKET_COUNT_LOG == 0:
         print(f'... {packetCount} captured ...')
