@@ -79,6 +79,8 @@ PACKET_COUNT_LOG = int(os.environ.get('PACKET_COUNT_LOG', default=10000))
 # verbose raw packet sending
 SNIFFER_SEND_VERBOSE = os.environ.get('SNIFFER_SEND_VERBOSE', default=False)
 SNIFFER_SEND_VERBOSE = strtobool(SNIFFER_SEND_VERBOSE)
+
+# log settings
 print (f'... IFACE_TZSP: {IFACE_TZSP} ...')
 print (f'... IFACE_SNIFFER: {IFACE_SNIFFER} ...')
 print (f'... SNIFFER_SEND_VERBOSE: {SNIFFER_SEND_VERBOSE} ...')
@@ -93,6 +95,7 @@ mac_str = str(getHwAddr(IFACE_SNIFFER))
 
 print('... tzsp capturing ...')
 packetCount = 0
+# TODO: add signal handling
 while True:
     sniff(prn=processPacketCapture, count=1000, iface=IFACE_TZSP, filter = 'udp port 37008', store=0)
     packetCount += 1000
