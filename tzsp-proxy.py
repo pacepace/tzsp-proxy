@@ -51,9 +51,10 @@ def processPacketCapture ( tzspCapture ):
              try:
                  rawPacket[Ether].dst = mac_str
                  sendp(rawPacket, iface=IFACE_SNIFFER, verbose=False)
-             except:
-                 print("Exception!")
-                 print(repr(tzspRawPacket))
+             except Exception as err:
+                 print(f'Exception:/n{err}')
+                 #print("Exception!")
+                 #print(repr(tzspRawPacket))
         except:
              print("Exception!")
 
