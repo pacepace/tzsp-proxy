@@ -32,6 +32,9 @@ IFACE_TZSP = os.environ.get('IFACE_TZSP', default='eth0')
 # output suricata interface
 IFACE_SURICATA = os.environ.get('IFACE_SURICATA', default='eth0')
 
+# global variables
+tzsp_receive = 0
+
 # load tzsp library
 print('... tzsp library loading ...')
 load_contrib('tzsp')
@@ -50,6 +53,9 @@ def processPacketCapture ( tzspCapture ):
         tzspRawPacket = tzspCapture[0]
         tzspPacket = TZSP(tzspRawPacket[UDP].load)
         rawPacket = tzspPacket[2]
+        tzsp_receive += 1
+        if tzsp_receive % 1000 == 0:
+            print(f'... tzsp packets received: {tzsp_receive} ...') 
         try:
             rawPacket[Ether].dst = mac_str
             sendp(rawPacket, iface=IFACE_SURICATA, verbose=False)
