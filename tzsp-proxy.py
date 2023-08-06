@@ -33,6 +33,10 @@ IFACE_TZSP = os.environ.get('IFACE_TZSP', default='eth0')
 IFACE_SNIFFER = os.environ.get('IFACE_SNIFFER', default='eth0')
 # verbose raw packet sending
 SNIFFER_SEND_VERBOSE = os.environ.get('SNIFFER_SEND_VERBOSE', default=False)
+if SNIFFER_SEND_VERBOSE == 'True' or SNIFFER_SEND_VERBOSE=='true' or SNIFFER_SEND_VERBOSE=='1':
+    SNIFFER_SEND_VERBOSE = True
+else:
+    SNIFFER_SEND_VERBOSE = False
 print (f'... SNIFFER_SEND_VERBOSE: {SNIFFER_SEND_VERBOSE} ...')
 
 # load tzsp library
