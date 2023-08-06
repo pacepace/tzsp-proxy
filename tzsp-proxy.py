@@ -109,5 +109,7 @@ while True:
     newPacketCount = Counter(count=1)
     packetCount.update(newPacketCount)
     if packetCount['count'] % PACKET_COUNT_LOG == 0:
-        print(f'... {packetCount['count']} captured ...')
+        # counter object doesn't seem happy in a format
+        pc = packetCount['count']
+        print(f'... {pc} captured ...')
 print('... tzsp proxy stopping ...')
