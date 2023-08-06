@@ -20,6 +20,7 @@ import socket
 import struct
 import os
 
+from collections import Counter
 from dotenv import load_dotenv
 from scapy.all import *
 
@@ -27,9 +28,10 @@ from scapy.all import *
 load_dotenv()
 
 # packet count
-packetCount = 0
+packetCount = Counter()
+packetCount['count'] = 0
 
-# clasees
+# classes
 
 # return the mac address of the interface
 def getHwAddr(ifname):
@@ -41,6 +43,7 @@ def getHwAddr(ifname):
 # the original destination mac will be lost
 def processPacketCapture ( tzspCapture ):
     try:
+        packetCount.update()
         tzspRawPacket = tzspCapture[0]
         tzspPacket = TZSP(tzspRawPacket[UDP].load)
         rawPacket = tzspPacket[2]
@@ -104,7 +107,7 @@ print('... tzsp capturing ...')
 # TODO: add signal handling
 while True:
     sniff(prn=processPacketCapture, count=1000, iface=IFACE_TZSP, filter = 'udp port 37008', store=0)
-    packetCount += 1000
-    if packetCount % PACKET_COUNT_LOG == 0:
+    packetCount['count'] += 1000
+    if packetCount['count'] % PACKET_COUNT_LOG == 0:
         print(f'... {packetCount} captured ...')
 print('... tzsp proxy stopping ...')
