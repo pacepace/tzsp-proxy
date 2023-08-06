@@ -46,7 +46,7 @@ def processPacketCapture ( tzspCapture ):
         rawPacket = tzspPacket[2]
         try:
             rawPacket[Ether].dst = mac_str
-            sendp(rawPacket, iface=IFACE_SNIFFER, verbose=False):
+            sendp(rawPacket, iface=IFACE_SNIFFER, verbose=False)
             if (SNIFFER_SEND_VERBOSE):
                 if IP in rawPacket:
                     print(f'Source IP: {rawPacket[IP].src:<15} Destination IP: {rawPacket[IP].dst:<15}')
