@@ -20,7 +20,6 @@ import socket
 import struct
 import os
 
-from distutils.util.strtobool import strtobool
 from dotenv import load_dotenv
 from scapy.all import *
 
