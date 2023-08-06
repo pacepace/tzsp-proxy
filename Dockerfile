@@ -44,7 +44,7 @@ ENV PYTHONUNBUFFERED=1
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive \
     apt-get upgrade -y \
- && apt-get install -y libpcap
+ && apt-get install -y libpcap0.8
 
 # copy compiled files into the runtime image
 COPY --from=compile-image /opt/venv /opt/venv
